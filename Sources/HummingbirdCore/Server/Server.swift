@@ -118,17 +118,19 @@ public actor Server<ChildChannel: ServerChildChannel>: Service {
 
                         let logger = self.logger
                         // We can now start to handle our work.
-                        await withDiscardingTaskGroup { group in
-                            do {
-                                try await asyncChannel.executeThenClose { inbound in
-                                    for try await childChannel in inbound {
-                                        group.addTask {
-                                            await childChannelSetup.handle(value: childChannel, logger: logger)
+                        if #available(macOS 14, iOS 16, *){
+                            await withDiscardingTaskGroup { group in
+                                do {
+                                    try await asyncChannel.executeThenClose { inbound in
+                                        for try await childChannel in inbound {
+                                            group.addTask {
+                                                await childChannelSetup.handle(value: childChannel, logger: logger)
+                                            }
                                         }
                                     }
+                                } catch {
+                                    logger.error("Waiting on child channel: \(error)")
                                 }
-                            } catch {
-                                logger.error("Waiting on child channel: \(error)")
                             }
                         }
                     } onGracefulShutdown: {

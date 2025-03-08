@@ -37,7 +37,9 @@ struct HTTPHeaderDateFormatStyle {
 
     init() {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = .gmt
+        if #available(macOS 14, iOS 16, *){
+            calendar.timeZone = .gmt
+        }
         self.calendar = calendar
     }
 }

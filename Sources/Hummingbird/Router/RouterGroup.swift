@@ -30,6 +30,7 @@ import NIOCore
 /// .put(":id", use: todoController.update)
 /// .delete(":id", use: todoController.delete)
 /// ```
+@available(macOS 14, iOS 16, *)
 public struct RouterGroup<Context: RequestContext>: RouterMethods {
     let path: RouterPath
     let parent: any RouterMethods<Context>

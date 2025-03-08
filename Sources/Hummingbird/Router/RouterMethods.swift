@@ -50,6 +50,7 @@ extension RouterMethods {
 
     /// Return a group inside the current group
     /// - Parameter path: path prefix to add to routes inside this group
+    @available(macOS 14, iOS 16, *)
     public func group(_ path: RouterPath = "") -> RouterGroup<Context> {
         RouterGroup(
             path: path,
@@ -73,6 +74,7 @@ extension RouterMethods {
     /// - Parameters
     ///   - path: path prefix to add to routes inside this group
     ///   - convertContext: Function converting context
+    @available(macOS 14, iOS 16, *)
     public func group<TargetContext>(
         _ path: RouterPath = "",
         context: TargetContext.Type
@@ -99,6 +101,7 @@ extension RouterMethods {
     /// - Parameters
     ///   - path: path prefix to add to routes inside this group
     ///   - convertContext: Function converting context
+    @available(macOS 14, iOS 16, *)
     public func group<TargetContext: ChildRequestContext>(
         _ path: RouterPath = "",
         context: TargetContext.Type

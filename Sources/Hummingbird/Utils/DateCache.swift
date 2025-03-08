@@ -44,10 +44,12 @@ final class DateCache: Service {
     }
 
     public func run() async throws {
-        let timerSequence = AsyncTimerSequence(interval: .seconds(1), clock: .suspending)
-            .cancelOnGracefulShutdown()
-        for try await _ in timerSequence {
-            self.dateContainer.store(.init(date: Date.now.httpHeader), ordering: .releasing)
+        if #available(macOS 14, iOS 16, *){
+            let timerSequence = AsyncTimerSequence(interval: .seconds(1), clock: .suspending)
+                .cancelOnGracefulShutdown()
+            for try await _ in timerSequence {
+                self.dateContainer.store(.init(date: Date.now.httpHeader), ordering: .releasing)
+            }
         }
     }
 

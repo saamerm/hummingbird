@@ -16,6 +16,7 @@ import AsyncAlgorithms
 import Atomics
 import NIOCore
 
+@available(macOS 14, iOS 16, *)
 /// In memory driver for persist system for storing persistent cross request key/value pairs
 public actor MemoryPersistDriver<C: Clock>: PersistDriver where C.Duration == Duration {
     public init(_ clock: C = .continuous) {

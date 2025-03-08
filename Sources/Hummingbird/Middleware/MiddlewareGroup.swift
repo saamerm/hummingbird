@@ -13,6 +13,7 @@
 //===----------------------------------------------------------------------===//
 
 /// Group of middleware that can be used to create a responder chain. Each middleware calls the next one
+@available(macOS 14, iOS 16, *)
 public final class MiddlewareGroup<Context> {
     var middlewares: [any MiddlewareProtocol<Request, Response, Context>]
 
